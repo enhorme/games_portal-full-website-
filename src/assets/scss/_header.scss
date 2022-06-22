@@ -1,0 +1,63 @@
+.header {
+
+  &__wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 25px 40px;
+  }
+
+  &__search {
+    &__input{
+      width: 100%;
+      height: 45px;
+      border-radius: 25px;
+      padding: 0 14px 0 22px;
+    }
+  }
+  
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 15px;
+    gap: 15px;
+    &:nth-child(2){
+      width: 100%;
+    }
+    &-link {
+      position: relative;
+      font-size: 16px;
+      padding: 8px 0;
+
+      &:hover {
+        &:after{
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 3px;
+          background: white;
+        }
+      }
+    }
+
+  }
+
+  &__logo {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  &__login {
+
+  }
+}
+
+
+
+

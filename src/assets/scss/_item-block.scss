@@ -1,0 +1,40 @@
+
+.items-block {
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    gap: 10px;
+    &:hover {
+      .items-block__icon {
+        background: white;
+        color:black;
+      }
+    }
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    background: #3f3f3f;
+    padding: 4px;
+    border-radius: 2px;
+    
+  }
+
+  &__link {
+
+  }
+}

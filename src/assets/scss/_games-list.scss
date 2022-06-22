@@ -1,0 +1,12 @@
+.games_list {
+  display: grid;
+  grid-gap: 10px 24px;
+  grid-template-columns: repeat(4, 309.333px);
+  @media (max-width:1620px){
+    grid-template-columns: repeat(3, 309.333px)
+  }
+  @media (max-width:1024px){
+    grid-template-columns: repeat(2, 309.333px)
+
+  }
+}
