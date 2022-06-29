@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { FaXbox, FaPlaystation } from "react-icons/fa";
 import { AiFillWindows, AiFillApple, AiFillAndroid } from "react-icons/ai";
 import { SiNintendo, SiLinux, SiApplearcade } from "react-icons/si";
-import CardMedia from "./CardMedia";
+import CardMedia from "src/components/GameCard/CardMedia";
 import { NavLink } from "react-router-dom";
-import CardButton from "./CardButton";
+import CardButton from "src/components/GameCard/CardButton";
+import metacriticsColor from "../../utils/metacriticsColor";
 
 const platformIcon = {
   Xbox: <FaXbox />,
@@ -22,6 +23,8 @@ export default ({ game }) => {
 
   const platforms = game["parent_platforms"];
   const title = game.name;
+  const metaCount = game.metacritic;
+  const color = metacriticsColor(metaCount);
 
   const handleMouseEnter = () => {
     setMouseEnter(true);
@@ -41,16 +44,26 @@ export default ({ game }) => {
       <CardMedia game={game} />
       <div className="game-card__info">
         <div className="game-card__platforms">
-          {platforms?.map((platform, idx) => {
+          {platforms?.map((platform) => {
             return (
               <div className="game-card__platform" key={platform.platform.name}>
                 {platformIcon[platform.platform.name]}
               </div>
             );
           })}
+          {game.metacritic && (
+            <div
+              className="game-card__meta"
+              style={{ color: color, borderColor: color }}
+            >
+              {game.metacritic}
+            </div>
+          )}
         </div>
         <div className="game-card__title">
-          <h2>{title}</h2>
+          <NavLink to={`${game.slug}`}>
+            <h2>{title}</h2>
+          </NavLink>
         </div>
         {mouseEnter && (
           <div
@@ -65,12 +78,11 @@ export default ({ game }) => {
                 <span>Genres:</span>
                 <span>
                   {game.genres?.map(({ name }) => (
-                    <NavLink to={"#"}>{name}</NavLink>
+                    <NavLink to={"#"} key={name}>
+                      {name}
+                    </NavLink>
                   ))}
                 </span>
-              </li>
-              <li>
-                <span>Metacritic:</span> <span>{game.metacritic}</span>
               </li>
             </ul>
             <CardButton />

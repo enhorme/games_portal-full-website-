@@ -1,28 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
+import useWindowResize from "src/hooks/useWindowResize";
+
+import placeholder from "src/assets/img/placeholder.jpg";
+import Spinner from "src/components/Spinner";
 
 const CardMedia = ({ game }) => {
   const [imgMouseEnter, setMouseEnter] = useState(false);
   const [tabImgActive, setTabImgActive] = useState(0);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [width, setWidth] = useState(0);
   const imgRef = useRef(null);
+  const size = useWindowResize();
 
   const screenShotsArray = game["short_screenshots"];
 
   useEffect(() => {
     const widthImg = imgRef.current.clientWidth;
     setWidth(widthImg / screenShotsArray.length);
-  }, []);
+  }, [size]);
 
   const handleMove = (e) => {
     let rect = e.target.getBoundingClientRect();
     let x = e.clientX - rect.left;
     const currentSlide =
-      Math.ceil(x / width) < 1
+      Math.floor(x / width) < 1
         ? 0
-        : Math.ceil(x / width) - 1 > screenShotsArray.length - 1
+        : Math.floor(x / width) > screenShotsArray.length - 1
         ? screenShotsArray.length - 1
-        : Math.ceil(x / width) - 1;
-
+        : Math.floor(x / width);
     setTabImgActive(currentSlide);
   };
 
@@ -35,6 +40,10 @@ const CardMedia = ({ game }) => {
     setMouseEnter(false);
   };
 
+  const onImageLoaded = () => {
+    setIsImageLoaded(true);
+  };
+
   return (
     <div
       className="game-card__image"
@@ -43,7 +52,15 @@ const CardMedia = ({ game }) => {
       onMouseLeave={handleLeave}
       ref={imgRef}
     >
-      <img src={screenShotsArray[tabImgActive].image} alt="" />
+      {!isImageLoaded ? <Spinner /> : null}
+
+      <img
+        src={screenShotsArray[tabImgActive]?.image || placeholder}
+        alt=""
+        onLoad={onImageLoaded}
+        loading="lazy"
+      />
+
       {imgMouseEnter && (
         <div>
           <div className="game-card__dots-wrapper">

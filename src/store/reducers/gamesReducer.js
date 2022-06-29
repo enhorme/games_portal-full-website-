@@ -1,52 +1,71 @@
-import { getGamesList } from "../../api/axios";
-
-const FETCHING_GAMES_LIST = "FETCHING_GAMES_LIST";
-const FETCHING_GAMES_LIST_LOADING = "FETCHING_GAMES_LIST_LOADING";
-const FETCHING_GAMES_LIST_ERROR = "FETCHING_GAMES_LIST_ERROR";
-
-const fetchingGamesIsLoading = (payload) => ({
-  type: FETCHING_GAMES_LIST_LOADING,
-  payload,
-});
-const fetchingGamesError = () => ({ type: FETCHING_GAMES_LIST_ERROR });
-
-export const fetchingGamesList = () => {
-  return async (dispatch) => {
-    dispatch(fetchingGamesIsLoading(true));
-    try {
-      const res = await getGamesList({
-        params: {
-          page: 1,
-          page_size: 10,
-        },
-      });
-      dispatch({ type: FETCHING_GAMES_LIST, payload: res.data.results });
-    } catch (e) {
-      console.log(e.messages);
-      fetchingGamesError();
-    } finally {
-      dispatch(fetchingGamesIsLoading(false));
-    }
-  };
-};
+import { actionTypes } from "src/store/actions/actionTypes";
 
 const initialState = {
-  gamesList: [],
+  trending: [],
+  allGames: [],
+  popular: [],
+  newGames: [],
+  upcoming: [],
+  nextWeek: [],
+  thisWeek: [],
+  lastMonth: [],
+  searched: [],
   isFetching: false,
   error: false,
 };
 
 export const gamesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCHING_GAMES_LIST: {
-      return { ...state, gamesList: state.gamesList.concat(payload) };
+    case actionTypes.FETCHING_ALLTIME_GAMES: {
+      return {
+        ...state,
+        allGames: [...state.allGames, ...payload],
+      };
     }
-    case FETCHING_GAMES_LIST_LOADING: {
+
+    case actionTypes.FETCHING_TRENDING_GAMES: {
+      return {
+        ...state,
+        trending: [...state.trending, ...payload],
+      };
+    }
+
+    case actionTypes.FETCHING_LASTMONTH_GAMES: {
+      return {
+        ...state,
+        lastMonth: [...state.lastMonth, ...payload],
+      };
+    }
+
+    case actionTypes.FETCHING_THIS_WEEK_GAMES: {
+      return {
+        ...state,
+        thisWeek: [...state.thisWeek, ...payload],
+      };
+    }
+
+    case actionTypes.FETCHING_NEXT_WEEK_GAMES: {
+      return {
+        ...state,
+        nextWeek: [...state.nextWeek, ...payload],
+      };
+    }
+
+    case actionTypes.FETCHING_UPCOMING_GAMES: {
+      return {
+        ...state,
+        upcoming: [...state.upcoming, ...payload],
+      };
+    }
+
+    case actionTypes.FETCHING_GAMES_LIST_LOADING: {
       return { ...state, isFetching: payload };
     }
-    case FETCHING_GAMES_LIST_ERROR: {
+
+    case actionTypes.FETCHING_GAMES_LIST_ERROR: {
       return { ...state, error: true };
     }
+
     default:
       return state;
   }

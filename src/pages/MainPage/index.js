@@ -1,5 +1,6 @@
 import React from "react";
+import GamesList from "../../components/GamesList";
 
 export default () => {
-  return <div>Main</div>;
+  return <GamesList />;
 };

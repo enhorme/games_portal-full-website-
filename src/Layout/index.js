@@ -2,8 +2,10 @@ import React from "react";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import GamesList from "../components/GamesList";
+import { Outlet, useLocation } from "react-router";
 
 export default () => {
+  const location = useLocation();
   return (
     <>
       <header>
@@ -12,7 +14,7 @@ export default () => {
       <div className="page-content">
         <SideBar />
         <main>
-          <GamesList />
+          <Outlet />
         </main>
       </div>
       <footer></footer>

@@ -11,11 +11,12 @@ const createLinkArray = (name, route, icon) => ({
   icon,
 });
 
-const linkArr = [
-  createLinkArray("Last 30 days", "#", <AiFillStar />),
-  createLinkArray("This Week", "#", <AiFillFire />),
-  createLinkArray("Next week", "#", <TbPlayerTrackNext />),
-  createLinkArray("Release calendar", "#", <AiOutlineCalendar />),
+const linksReleases = [
+  createLinkArray("New Games", "discover/newGames", <TbPlayerTrackNext />),
+  createLinkArray("Last 30 days", "discover/lastMonth", <AiFillStar />),
+  createLinkArray("This Week", "discover/thisWeek", <AiFillFire />),
+  createLinkArray("Next week", "discover/nextWeek", <TbPlayerTrackNext />),
+  createLinkArray("Upcoming Games", "discover/upcoming", <TbPlayerTrackNext />),
 ];
 
 export default () => {
@@ -25,9 +26,9 @@ export default () => {
         <NavLink to={"#"}>Home</NavLink>
       </div>
       <div className="side-bar__link">
-        <NavLink to={"#"}>All Games</NavLink>
+        <NavLink to={"discover/allTime"}>All Games</NavLink>
       </div>
-      <ItemsBlock title="New Releases" linksArray={linkArr} />
+      <ItemsBlock title="Discovery" linksArray={linksReleases} />
     </div>
   );
 };

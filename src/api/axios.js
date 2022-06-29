@@ -1,9 +1,133 @@
 import axios from "axios";
+import { dateObj } from "./date";
+const BASE_URL = "https://api.rawg.io/api/";
 
-const BASE_URL = "https://api.rawg.io/api/games";
 export const getGamesList = axios.create({
   baseURL: BASE_URL,
   params: {
-    key: "f228528bf53d4f0d99581d006a497729",
+    key: "7e1ae3adb3ef46dfa0488bf6df89e436",
   },
 });
+
+const trendingGamesParams = (page) => {
+  return {
+    addUrl: "games/lists/main",
+    params: {
+      page: page,
+      dates: `${dateObj.lastYear},${dateObj.currentDate}`,
+      ordering: "-relevance",
+      discover: "true",
+      page_size: 8,
+    },
+  };
+};
+
+const popularGamesParams = (page) => {
+  return {
+    addUrl: "games",
+    params: {
+      page: page,
+      ordering: "-metacritic",
+      page_size: 8,
+      dates: `${dateObj.lastYear},${dateObj.currentDate}`,
+    },
+  };
+};
+
+const upcomingGamesParams = (page) => {
+  return {
+    addUrl: "games",
+    params: {
+      page: page,
+      ordering: "-added",
+      page_size: 8,
+      dates: `${dateObj.currentDate},${dateObj.nextYear}`,
+    },
+  };
+};
+
+const newGamesParams = (page) => {
+  return {
+    addUrl: "games",
+    params: {
+      page: page,
+      ordering: "-released,-metacritic",
+      page_size: 8,
+      dates: `${dateObj.lastYear},${dateObj.currentDate}`,
+    },
+  };
+};
+
+const allTimeGamesParams = (page = 1) => {
+  return {
+    addUrl: "games",
+    params: {
+      page: page,
+      ordering: "-metacritic",
+      page_size: 8,
+      dates: `1960-01-01,${dateObj.currentDate}`,
+    },
+  };
+};
+
+const thisWeekGamesParams = (page = 1) => {
+  return {
+    addUrl: "games",
+    params: {
+      page: page,
+      ordering: "-released",
+      page_size: 8,
+      dates: `${dateObj.prevWeek},${dateObj.currentDate}`,
+    },
+  };
+};
+
+const nextWeekGamesParams = (page = 1) => {
+  return {
+    addUrl: "games",
+    params: {
+      page: page,
+      ordering: "-released",
+      page_size: 8,
+      dates: `${dateObj.currentDate},${dateObj.nextWeek}`,
+    },
+  };
+};
+
+const lastMonthGamesParams = (page = 1) => {
+  return {
+    addUrl: "games",
+    params: {
+      page: page,
+      ordering: "-released",
+      page_size: 8,
+      dates: `${dateObj.lastMonth},${dateObj.currentDate}`,
+    },
+  };
+};
+
+export const genreGamesUrl = (genre) => {
+  return `${base_url}games?dates=${lastDate},${currentDate}&genres=${genre}&ordering=-metacritic&page_size=${size}`;
+};
+
+export const gameDetailsUrl = (gameId) => {
+  return `${base_url}games/${gameId}`;
+};
+export const gameScreenshotsUrl = (gameId) => {
+  return `${base_url}games/${gameId}/screenshots`;
+};
+
+export const searchGamesUrl = (gameName) => {
+  return `${base_url}games?search=${gameName}&page_size=${size}`;
+};
+
+export const queryParams = {
+  trendingGamesParams,
+  popularGamesParams,
+  upcomingGamesParams,
+  newGamesParams,
+  allTimeGamesParams,
+  thisWeekGamesParams,
+  nextWeekGamesParams,
+  lastMonthGamesParams,
+};

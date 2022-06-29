@@ -7,9 +7,10 @@
 
 html {
   box-sizing: border-box;
-  width: 100%;
+  max-height: 100%;
   height: 100%;
-  overflow-x:hidden;
+  overflow-x:hidden
+
 }
 *, *:before, *:after {
   box-sizing: border-box;
@@ -24,6 +25,7 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-height: 100%;
 }
 
 
@@ -40,13 +42,39 @@ a{
 
 .page-content {
   position: relative;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+
+.scroll-totop {
+  position: fixed;
   display: flex;
-  min-height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  right: 10px;
+  bottom: 10px;
+  width:50px;
+  height: 50px;
+  border-radius: 50%;
+  background: yellow;
+  cursor: pointer;
+  transition: 0.3s;
+  svg{
+    width: 90%;
+    height: 90%;
+  }
+
+  &:hover{
+    background: #656565;
+    color: yellow;
+  }
+
 }
 
 main {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 300px;
+  width: 100%;
 }
+
+
 
