@@ -10,14 +10,16 @@
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack-dev-server --mode development --open --history-api-fallback"
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "html-webpack-plugin": "^5.5.0",
     "moment": "^2.29.3",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
     "react-router": "^6.3.0",

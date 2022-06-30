@@ -4,6 +4,8 @@
 @import "assets/scss/item-block";
 @import "assets/scss/game-card";
 @import "assets/scss/games-list";
+@import "assets/scss/game-details";
+@import "assets/scss/search-games";
 
 html {
   box-sizing: border-box;
@@ -74,6 +76,7 @@ a{
 
 main {
   width: 100%;
+  padding: 60px 60px 60px 0;
 }
 
 

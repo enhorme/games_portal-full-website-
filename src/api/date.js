@@ -19,7 +19,7 @@ const getCurrentMonth = () => {
 };
 
 const getLastMonth = () => {
-  const date = new Date().getTime() - 6048e5 * 4;
+  const date = new Date().getTime() - 604800000 * 4;
   return moment(date).format("YYYY-MM-DD");
 };
 

@@ -1,0 +1,34 @@
+.game-details {
+  padding: 10px 60px 200px 0;
+   &__wrapper {
+     display: grid;
+     grid-template-columns:  6fr minmax(300px, 4fr);
+     grid-column-gap: 40px;
+   }
+
+  &__info {
+      span {
+        font-size: 60px;
+        font-weight: bold;
+      }
+  }
+   &__screenshots{
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, 1fr) ;
+   }
+  &__screenshots-item{
+    border-radius: 5px;
+    overflow: hidden;
+    &:first-child{
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    img {
+      width:100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { FaXbox, FaPlaystation } from "react-icons/fa";
 import { AiFillWindows, AiFillApple, AiFillAndroid } from "react-icons/ai";
 import { SiNintendo, SiLinux, SiApplearcade } from "react-icons/si";
@@ -18,7 +18,7 @@ const platformIcon = {
   "Apple Macintosh": <SiApplearcade />,
 };
 
-export default ({ game }) => {
+export default forwardRef(({ game }, ref) => {
   const [mouseEnter, setMouseEnter] = useState(false);
 
   const platforms = game["parent_platforms"];
@@ -36,6 +36,7 @@ export default ({ game }) => {
 
   return (
     <div
+      ref={ref}
       className="game-card"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -61,7 +62,7 @@ export default ({ game }) => {
           )}
         </div>
         <div className="game-card__title">
-          <NavLink to={`${game.slug}`}>
+          <NavLink to={`/details/${game.id}`}>
             <h2>{title}</h2>
           </NavLink>
         </div>
@@ -91,4 +92,4 @@ export default ({ game }) => {
       </div>
     </div>
   );
-};
+});

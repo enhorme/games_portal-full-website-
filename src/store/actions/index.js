@@ -1,38 +1,88 @@
-import { getGamesList, queryParams } from "src/api/axios";
+import { getData, queryParams } from "src/api/axios";
 import { actionTypes } from "./actionTypes";
+import axios from "axios";
 
 const fetchingGamesIsLoading = (payload) => ({
   type: actionTypes.FETCHING_GAMES_LIST_LOADING,
   payload,
 });
-const fetchingGamesError = () => ({
+
+const fetchingGamesError = (payload) => ({
   type: actionTypes.FETCHING_GAMES_LIST_ERROR,
+  payload,
 });
 
-export const fetchingGamesList = (path, page) => {
-  return async (dispatch) => {
-    dispatch(fetchingGamesIsLoading(true));
-    const { type, params } = getGamesByQuery(path, page);
-    try {
-      const res = await getGamesList(params.addUrl, {
-        params: params.params,
-      });
-      console.log("res", res);
-      dispatch({
-        type: type,
-        payload: res.data.results,
-      });
-    } catch (e) {
-      console.log(e.messages);
-      dispatch(fetchingGamesError());
-    } finally {
-      dispatch(fetchingGamesIsLoading(false));
-    }
-  };
+const fetchingGameDetailsIsLoading = (payload) => ({
+  type: actionTypes.FETCHING_GAME_LOADING,
+  payload,
+});
+
+const fetchingGameDetailsError = () => ({
+  type: actionTypes.FETCHING_GAME_ERROR,
+});
+
+const fetchingGameDetailsScreenShots = (payload) => ({
+  type: actionTypes.FETCHING_GAME_SCREENSHOTS,
+  payload,
+});
+
+export const fetchingGamesList = (path, page, cancel) => async (dispatch) => {
+  dispatch(fetchingGamesIsLoading(true));
+  const { type, params } = getGamesByQuery(path, page);
+
+  try {
+    const res = await getData(params.addUrl, {
+      params: params.params,
+    });
+    dispatch({
+      type: type,
+      payload: {
+        list: res.data.results,
+        pageCount: Math.ceil(res.data.count / 8),
+      },
+    });
+  } catch (e) {
+    if (axios.isCancel(e)) return;
+    console.log(e.messages);
+    dispatch(fetchingGamesError());
+  } finally {
+    dispatch(fetchingGamesIsLoading(false));
+  }
+};
+
+export const fetchingGameDetails = (gameId) => async (dispatch) => {
+  dispatch(fetchingGameDetailsIsLoading(true));
+  dispatch(fetchingGamesError(false));
+  try {
+    const gameData = await getData(queryParams.gameDetails(gameId));
+
+    dispatch({
+      type: actionTypes.FETCHING_GAME,
+      payload: gameData.data,
+    });
+  } catch (e) {
+    console.log(e.messages);
+    dispatch(fetchingGameDetailsError(true));
+  } finally {
+    dispatch(fetchingGameDetailsIsLoading(false));
+  }
+};
+
+export const fetchingGameScreenShots = (gameId) => async (dispatch) => {
+  dispatch(fetchingGameDetailsIsLoading(true));
+  dispatch(fetchingGamesError(false));
+  try {
+    const gameScreenShots = await getData(queryParams.gameScreenshots(gameId));
+    dispatch(fetchingGameDetailsScreenShots(gameScreenShots.data.results));
+  } catch (e) {
+    console.log(e.messages);
+    dispatch(fetchingGamesError(true));
+  } finally {
+    dispatch(fetchingGameDetailsIsLoading(false));
+  }
 };
 
 const getGamesByQuery = (path = "", page) => {
-  console.log("path", path);
   switch (path) {
     case "":
       return {

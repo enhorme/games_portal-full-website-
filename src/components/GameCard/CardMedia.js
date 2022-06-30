@@ -55,7 +55,14 @@ const CardMedia = ({ game }) => {
       {!isImageLoaded ? <Spinner /> : null}
 
       <img
-        src={screenShotsArray[tabImgActive]?.image || placeholder}
+        src={
+          screenShotsArray && screenShotsArray.length
+            ? screenShotsArray[tabImgActive]?.image.replace(
+                "media/",
+                "media/resize/640/-/"
+              )
+            : placeholder
+        }
         alt=""
         onLoad={onImageLoaded}
         loading="lazy"

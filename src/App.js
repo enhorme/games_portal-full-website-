@@ -11,7 +11,7 @@ const App = () => {
       <Route path={"/"} element={<Layout />}>
         <Route index element={<MainPage />} />
         <Route path={"discover/:rel"} element={<DiscoverPage />} />
-        <Route path=":gamesDetails" element={<GameDetails />} />
+        <Route path="details/:gameId" element={<GameDetails />} />
       </Route>
     </Routes>
   );

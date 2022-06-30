@@ -23,7 +23,7 @@ export default () => {
   return (
     <div className="side-bar">
       <div className="side-bar__link">
-        <NavLink to={"#"}>Home</NavLink>
+        <NavLink to={"/"}>Home</NavLink>
       </div>
       <div className="side-bar__link">
         <NavLink to={"discover/allTime"}>All Games</NavLink>

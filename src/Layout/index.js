@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../components/Header";
-import SideBar from "../components/SideBar";
-import GamesList from "../components/GamesList";
 import { Outlet, useLocation } from "react-router";
 
+import Header from "src/components/Header";
+import SideBar from "src/components/SideBar";
+import GameDetailsBG from "src/components/GameDetailsBG";
+
 export default () => {
-  const location = useLocation();
   return (
     <>
       <header>
@@ -18,6 +18,7 @@ export default () => {
         </main>
       </div>
       <footer></footer>
+      <GameDetailsBG />
     </>
   );
 };
