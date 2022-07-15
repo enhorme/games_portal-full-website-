@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import GameCard from "../GameCard";
@@ -12,15 +6,20 @@ import Spinner from "src/components/Spinner";
 import ScrollButton from "src/components/ScrollButton";
 import { useParams } from "react-router";
 import { fetchingGamesList } from "src/store/actions";
+import usePageTitle from "src/hooks/usePageTitle";
+import Filter from "src/components/Filter";
+import { getGamesList } from "src/store/reducers";
 
 export default () => {
   const [page, setPage] = useState(1);
-  const games = useSelector((state) => state.gamesList);
+  const games = useSelector(getGamesList);
   const dispatch = useDispatch();
-  const { rel } = useParams();
-  const { isLoading } = games;
-
+  const title = usePageTitle();
+  let { rel } = useParams();
+  const { isLoading, order } = games;
   const observer = useRef();
+
+  rel = rel && rel.includes("-") ? rel.replace("-", "") : rel;
 
   const currentGames = games[`${rel || "trending"}`];
 
@@ -46,20 +45,24 @@ export default () => {
   }, [rel]);
 
   useEffect(() => {
-    dispatch(fetchingGamesList(rel, page));
-  }, [rel, page]);
+    dispatch(fetchingGamesList(rel, page, order));
+  }, [rel, page, order]);
 
   return (
-    <section className="games_list">
-      {currentGames.list.map((game, index) => {
-        if (games[`${rel ?? "trending"}`].list.length === index + 1) {
-          return <GameCard ref={lastElementRef} game={game} key={game.id} />;
-        } else {
-          return <GameCard game={game} key={game.id} />;
-        }
-      })}
-      {isLoading ? <Spinner /> : null}
-      <ScrollButton />
-    </section>
+    <>
+      <h1>{title}</h1>
+      <Filter />
+      <section className="games_list">
+        {currentGames.list.map((game, index) => {
+          if (games[`${rel ?? "trending"}`].list.length === index + 1) {
+            return <GameCard ref={lastElementRef} game={game} key={game.id} />;
+          } else {
+            return <GameCard game={game} key={game.id} />;
+          }
+        })}
+        {isLoading ? <Spinner /> : null}
+        <ScrollButton />
+      </section>
+    </>
   );
 };

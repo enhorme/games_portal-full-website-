@@ -1,0 +1,33 @@
+.filter {
+  position: relative;
+  min-width: 160px;
+  margin: 0 0 20px 0;
+  &__select {
+    outline: none;
+    text-align: left;
+    color: white;
+    background: lighten( #212121, 10%);
+    border: none;
+    box-shadow: 0 0 0 0.4px darkorange;
+    padding: 0.75rem 0 0.75rem 6rem;
+  }
+  &::before {
+    content: "Order by:";
+    position: absolute;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    left: 1rem;
+    width: 5rem;
+    line-height: 1.25;
+    top: 50%;
+    transform: translateY(-50%);
+    color: darkorange;
+    height: 20px;
+    pointer-events: none;
+  }
+
+  
+}
+
+

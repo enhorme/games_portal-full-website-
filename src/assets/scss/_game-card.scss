@@ -5,6 +5,7 @@
   grid-template: 1fr 1fr / 1fr;
   border-radius: 12px;
   width: 100%;
+  max-width: 361px;
   background: #212121;
   min-height: 350px;
   transition: .3s;
@@ -127,7 +128,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0.8em 0.5em;
+  padding: 0.8em 1em;
   background: #656565;
   border: none;
   border-radius: 10px;

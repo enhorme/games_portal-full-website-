@@ -1,0 +1,42 @@
+.user {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+  &__avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    font-size: 35px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: orange;
+    cursor: pointer;
+    transition: .2s;
+    &:hover {
+      box-shadow: 0 0 2px 2px orange;
+      outline: 2px solid darkorange;
+      text-shadow: 0 1px 1px black;
+    }
+  }
+  &__email {
+    font-size: 18px;
+    font-style: italic;
+
+  }
+  &__favorite {
+    font-size:18px;
+    font-weight: bold;
+    font-style: italic;
+    text-transform: uppercase;
+    padding: 5px;
+    box-shadow: 0 0 0 0.5px darkorange;
+    &:hover {
+      color:grey;
+    }
+  }
+}

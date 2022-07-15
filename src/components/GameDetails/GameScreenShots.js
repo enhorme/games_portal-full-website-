@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { fetchingGameScreenShots } from "src/store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { getGameDetails } from "src/store/reducers";
 
 const GameScreenShots = () => {
   const dispatch = useDispatch();
   const { gameId } = useParams();
-  const { screenshots } = useSelector((state) => state.gameDetails);
-  console.log(screenshots);
+  const { screenshots } = useSelector(getGameDetails);
+
   useEffect(() => {
     dispatch(fetchingGameScreenShots(gameId));
   }, [gameId]);

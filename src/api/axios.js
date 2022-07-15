@@ -9,97 +9,97 @@ export const getData = axios.create({
   },
 });
 
-const trendingGamesParams = (page) => {
+const trendingGamesParams = (page, order) => {
   return {
     addUrl: "games/lists/main",
     params: {
       page: page,
       dates: `${dateObj.lastYear},${dateObj.currentDate}`,
-      ordering: "-relevance",
+      ordering: order,
       discover: "true",
       page_size: 8,
     },
   };
 };
 
-const popularGamesParams = (page) => {
+const popularGamesParams = (page, order) => {
   return {
     addUrl: "games",
     params: {
       page: page,
-      ordering: "-metacritic",
+      ordering: order,
       page_size: 8,
       dates: `${dateObj.lastYear},${dateObj.currentDate}`,
     },
   };
 };
 
-const upcomingGamesParams = (page) => {
+const upcomingGamesParams = (page, order) => {
   return {
     addUrl: "games",
     params: {
       page: page,
-      ordering: "-added",
+      ordering: order,
       page_size: 8,
       dates: `${dateObj.currentDate},${dateObj.nextYear}`,
     },
   };
 };
 
-const newGamesParams = (page) => {
+const newGamesParams = (page, order) => {
   return {
     addUrl: "games",
     params: {
       page: page,
-      ordering: "-released,-metacritic",
+      ordering: order,
       page_size: 8,
       dates: `${dateObj.lastYear},${dateObj.currentDate}`,
     },
   };
 };
 
-const allTimeGamesParams = (page = 1) => {
+const allTimeGamesParams = (page, order) => {
   return {
     addUrl: "games",
     params: {
       page: page,
-      ordering: "-metacritic",
+      ordering: order,
       page_size: 8,
       dates: `1960-01-01,${dateObj.currentDate}`,
     },
   };
 };
 
-const thisWeekGamesParams = (page = 1) => {
+const thisWeekGamesParams = (page, order) => {
   return {
     addUrl: "games",
     params: {
       page: page,
-      ordering: "-released",
+      ordering: order,
       page_size: 8,
       dates: `${dateObj.prevWeek},${dateObj.currentDate}`,
     },
   };
 };
 
-const nextWeekGamesParams = (page = 1) => {
+const nextWeekGamesParams = (page, order) => {
   return {
     addUrl: "games",
     params: {
       page: page,
-      ordering: "-released",
+      ordering: order,
       page_size: 8,
       dates: `${dateObj.currentDate},${dateObj.nextWeek}`,
     },
   };
 };
 
-const lastMonthGamesParams = (page = 1) => {
+const lastMonthGamesParams = (page, order) => {
   return {
     addUrl: "games",
     params: {
       page: page,
-      ordering: "-released",
+      ordering: order,
       page_size: 8,
       dates: `${dateObj.lastMonth},${dateObj.currentDate}`,
     },

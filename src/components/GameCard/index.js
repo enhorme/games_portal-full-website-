@@ -6,6 +6,8 @@ import CardMedia from "src/components/GameCard/CardMedia";
 import { NavLink } from "react-router-dom";
 import CardButton from "src/components/GameCard/CardButton";
 import metacriticsColor from "../../utils/metacriticsColor";
+import { useNavigate } from "react-router";
+import RatingStars from "src/components/Rating";
 
 const platformIcon = {
   Xbox: <FaXbox />,
@@ -20,12 +22,11 @@ const platformIcon = {
 
 export default forwardRef(({ game }, ref) => {
   const [mouseEnter, setMouseEnter] = useState(false);
-
+  const navigate = useNavigate();
   const platforms = game["parent_platforms"];
   const title = game.name;
   const metaCount = game.metacritic;
   const color = metacriticsColor(metaCount);
-
   const handleMouseEnter = () => {
     setMouseEnter(true);
   };
@@ -62,10 +63,15 @@ export default forwardRef(({ game }, ref) => {
           )}
         </div>
         <div className="game-card__title">
-          <NavLink to={`/details/${game.id}`}>
-            <h2>{title}</h2>
-          </NavLink>
+          <h2
+            onClick={() =>
+              navigate(`/details/${game.slug}`, { state: game.id })
+            }
+          >
+            {title}
+          </h2>
         </div>
+        {game.screenshots && <RatingStars gameId={game.id} />}
         {mouseEnter && (
           <div
             className="game-card__description"
@@ -86,7 +92,7 @@ export default forwardRef(({ game }, ref) => {
                 </span>
               </li>
             </ul>
-            <CardButton />
+            <CardButton id={game.id} />
           </div>
         )}
       </div>

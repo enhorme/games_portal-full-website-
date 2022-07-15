@@ -24,6 +24,6 @@ export const gameReducer = (state = initialState, { type, payload }) => {
     }
 
     default:
-      return state;
+      return state || initialState;
   }
 };

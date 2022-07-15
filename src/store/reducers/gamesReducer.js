@@ -10,6 +10,7 @@ const initialState = {
   thisWeek: { list: [], pageCount: 0 },
   lastMonth: { list: [], pageCount: 0 },
   searched: [],
+  order: "",
   isLoading: false,
   error: false,
 };
@@ -91,6 +92,13 @@ export const gamesReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case actionTypes.GAMES_ORDER: {
+      return {
+        ...initialState,
+        order: payload,
+      };
+    }
+
     case actionTypes.FETCHING_GAMES_LIST_LOADING: {
       return { ...state, isLoading: payload };
     }
@@ -99,7 +107,11 @@ export const gamesReducer = (state = initialState, { type, payload }) => {
       return { ...state, error: true };
     }
 
+    case actionTypes.SET_FAVORITE_GAMES_LIST: {
+      return { ...state, list: payload };
+    }
+
     default:
-      return state;
+      return state || initialState;
   }
 };

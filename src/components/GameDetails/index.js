@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchingGameDetails } from "src/store/actions";
 import { Helmet } from "react-helmet";
 
 import GameScreenShots from "src/components/GameDetails/GameScreenShots";
-import GamesList from "src/components/GamesList";
 
 export default () => {
-  const { gameId } = useParams();
+  const { state } = useLocation();
   const dispatch = useDispatch();
   const { game } = useSelector((state) => state.gameDetails);
 
   useEffect(() => {
-    dispatch(fetchingGameDetails(gameId));
-  }, [gameId]);
+    dispatch(fetchingGameDetails(state));
+  }, [state]);
 
   return (
     <>

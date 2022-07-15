@@ -1,9 +1,10 @@
 import React from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet } from "react-router";
 
 import Header from "src/components/Header";
 import SideBar from "src/components/SideBar";
 import GameDetailsBG from "src/components/GameDetailsBG";
+import Helmet from "src/components/Helmet";
 
 export default () => {
   return (
@@ -14,6 +15,7 @@ export default () => {
       <div className="page-content">
         <SideBar />
         <main>
+          <Helmet />
           <Outlet />
         </main>
       </div>
