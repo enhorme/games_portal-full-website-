@@ -1,6 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import {
+  deleteDoc,
+  doc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { getAuth, signOut } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD1wX8OWeAFm5J_UUQmCfjnpMkMzBMuJb0",
@@ -14,7 +20,38 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 
 export const auth = getAuth(firebase);
-
 export const firestoreDB = getFirestore(firebase);
 
+export const createDocument = async (data, gameId) => {
+  if (auth.currentUser?.uid) {
+    await setDoc(
+      doc(firestoreDB, `users/${auth.currentUser.uid}/games/${gameId}`),
+      data
+    );
+  }
+};
+
+export const deleteDocument = async (gameId) => {
+  if (auth.currentUser?.uid) {
+    await deleteDoc(
+      doc(firestoreDB, `users/${auth.currentUser.uid}/games/${gameId}`)
+    );
+  }
+};
+
+export const updateRatingFavorite = async (gameId, rating) => {
+  if (auth.currentUser?.uid) {
+    await updateDoc(
+      doc(firestoreDB, `users/${auth.currentUser.uid}/games/${gameId}`),
+      {
+        rating: rating,
+      }
+    );
+  }
+};
+export const logoutUser = () => {
+  signOut(auth)
+    .then(() => console.log("success"))
+    .catch((e) => console.log(e.message));
+};
 export default firebase;

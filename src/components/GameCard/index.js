@@ -20,7 +20,7 @@ const platformIcon = {
   "Apple Macintosh": <SiApplearcade />,
 };
 
-export default forwardRef(({ game }, ref) => {
+export default forwardRef(({ game, favorite = false, rating }, ref) => {
   const [mouseEnter, setMouseEnter] = useState(false);
   const navigate = useNavigate();
   const platforms = game["parent_platforms"];
@@ -44,6 +44,7 @@ export default forwardRef(({ game }, ref) => {
       style={{ zIndex: mouseEnter ? 8 : 5 }}
     >
       <CardMedia game={game} />
+
       <div className="game-card__info">
         <div className="game-card__platforms">
           {platforms?.map((platform) => {
@@ -71,7 +72,8 @@ export default forwardRef(({ game }, ref) => {
             {title}
           </h2>
         </div>
-        {game.screenshots && <RatingStars gameId={game.id} />}
+        {favorite && <RatingStars gameId={game.id} rating={rating} />}
+
         {mouseEnter && (
           <div
             className="game-card__description"
@@ -83,7 +85,15 @@ export default forwardRef(({ game }, ref) => {
               </li>
               <li>
                 <span>Genres:</span>
-                <span>
+                <span
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "flex-end",
+                    lineHeight: "1.5",
+                    flex: "0 0 60%",
+                  }}
+                >
                   {game.genres?.map(({ name }) => (
                     <NavLink to={"#"} key={name}>
                       {name}
@@ -92,7 +102,7 @@ export default forwardRef(({ game }, ref) => {
                 </span>
               </li>
             </ul>
-            <CardButton id={game.id} />
+            <CardButton game={game} />
           </div>
         )}
       </div>

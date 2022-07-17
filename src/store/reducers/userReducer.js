@@ -4,7 +4,6 @@ const initialState = {
   loading: false,
   currentUser: null,
   error: null,
-  favorite: [],
 };
 
 export const userReducer = (state = initialState, { type, payload }) => {
@@ -16,7 +15,7 @@ export const userReducer = (state = initialState, { type, payload }) => {
         currentUser: payload,
       };
 
-    case actionTypes.EMAIL_PASSWORD_LOGOUT_SUCCESS:
+    case actionTypes.LOGOUT_SUCCESS:
       return {
         ...state,
         currentUser: null,
@@ -26,23 +25,6 @@ export const userReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         currentUser: payload,
-      };
-
-    case actionTypes.GET_FAVORITE_GAMES:
-      return {
-        ...state,
-        favorite: payload,
-      };
-
-    case actionTypes.ADD_FAVORITE_GAME:
-      return state.favorite.includes(payload)
-        ? { ...state, favorite: [...state.favorite, payload] }
-        : state;
-
-    case actionTypes.DELETE_FAVORITE_GAME:
-      return {
-        ...state,
-        favorite: state.favorite.filter((i) => i !== payload),
       };
 
     case actionTypes.EMAIL_PASSWORD_SIGN_IN_FAIL:

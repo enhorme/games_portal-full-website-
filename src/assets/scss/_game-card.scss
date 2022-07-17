@@ -5,6 +5,7 @@
   grid-template: 1fr 1fr / 1fr;
   border-radius: 12px;
   width: 100%;
+  justify-content: space-between;
   max-width: 361px;
   background: #212121;
   min-height: 350px;
@@ -29,7 +30,7 @@
   }
 
   &__info {
-    padding: 5px 10px;
+    padding: 5px 10px 20px;
   }
 
   &__platforms {
@@ -77,6 +78,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px;
+      gap: 30px;
       font-size: 12px;
       border-bottom: 1px solid grey;
      span {
@@ -138,3 +140,9 @@
     color: yellow;
   }
 }
+
+
+.star-rating{
+  margin: 0 auto;
+}
+

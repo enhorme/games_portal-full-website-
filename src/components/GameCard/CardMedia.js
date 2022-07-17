@@ -12,7 +12,7 @@ const CardMedia = ({ game }) => {
   const imgRef = useRef(null);
   const size = useWindowResize();
 
-  const screenShotsArray = game["short_screenshots"] || game.screenshots;
+  const screenShotsArray = game["short_screenshots"];
 
   useEffect(() => {
     const widthImg = imgRef.current.clientWidth;

@@ -24,10 +24,13 @@
   &__list-item {
     display: flex;
     justify-content: flex-start;
-
+    cursor: pointer;
     align-items: center;
     gap: 10px;
-
+    &:hover {
+      box-shadow: 0 0 3px 3px #FFFFFF;
+      border-radius: 5px;
+    }
   }
 
   &__list-item-image {

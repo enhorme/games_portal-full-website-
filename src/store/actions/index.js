@@ -1,5 +1,7 @@
 import { getData, queryParams } from "src/api/axios";
 import { actionTypes } from "./actionTypes";
+import { auth } from "src/utils/firebase";
+import { signOut } from "firebase/auth";
 import axios from "axios";
 
 const fetchingGamesIsLoading = (payload) => ({
@@ -138,96 +140,7 @@ const getGamesByQuery = (path = "", page, order) => {
   }
 };
 
-///auth actions
-
-const logoutStart = () => ({
-  type: actionTypes.LOGOUT_START,
-});
-
-const logoutSuccess = () => ({
-  type: actionTypes.LOGOUT_SUCCESS,
-});
-
-const logoutError = (error) => ({
-  type: actionTypes.LOGOUT_FAIL,
-  payload: error,
-});
-
-const registerStart = () => ({
-  type: actionTypes.REGISTER_START,
-});
-
-const registerSuccess = ({ user, additionalData }) => ({
-  type: actionTypes.REGISTER_SUCCESS,
-  payload: { user, additionalData },
-});
-
-const registerError = (error) => ({
-  type: actionTypes.REGISTER_FAIL,
-  payload: error,
-});
-
-const loginStart = () => ({
-  type: actionTypes.LOGIN_START,
-});
-
-const loginSuccess = (user) => ({
-  type: actionTypes.LOGIN_SUCCESS,
-  payload: user,
-});
-
-const loginError = (error) => ({
-  type: actionTypes.LOGIN_FAIL,
-  payload: error,
-});
-
 export const setUser = (user) => ({
   type: actionTypes.SET_USER,
   payload: user,
 });
-
-export const addFavoriteGame = (payload) => ({
-  type: actionTypes.ADD_FAVORITE_GAME,
-  payload,
-});
-export const addDeleteteFavoriteGame = (payload) => ({
-  type: actionTypes.DELETE_FAVORITE_GAME,
-  payload,
-});
-
-export const registerUser = (email, password, displayName) => {
-  return function (dispatch) {
-    dispatch(registerStart());
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(({ user }) => {
-        user.updateProfile({
-          displayName,
-        });
-        dispatch(registerSuccess({ user, additionalData: { displayName } }));
-      })
-      .catch((error) => dispatch(registerError(error.message)));
-  };
-};
-
-export const loginInUser = (email, password) => {
-  return function (dispatch) {
-    dispatch(loginStart());
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(({ user }) => {
-        dispatch(loginSuccess(user));
-      })
-      .catch((error) => dispatch(loginError(error.message)));
-  };
-};
-
-export const logoutUser = () => {
-  return function (dispatch) {
-    dispatch(logoutStart());
-    auth
-      .signOut()
-      .then((resp) => dispatch(logoutSuccess()))
-      .catch((error) => dispatch(logoutError(error.message)));
-  };
-};
